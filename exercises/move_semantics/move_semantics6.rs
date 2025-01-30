@@ -5,24 +5,23 @@
 // Execute `rustlings hint move_semantics6` or use the `hint` watch subcommand
 // for a hint.
 
-// I AM NOT DONE
+
 
 fn main() {
     let data = "Rust is great!".to_string();
 
-    get_char(data);
+    get_char(&data); // 传递一个引用给 `get_char`
 
-    string_uppercase(&data);
+    string_uppercase(&data); // 传递一个引用给 `string_uppercase`
 }
 
-// Should not take ownership
-fn get_char(data: String) -> char {
+// 应该不获取所有权，使用引用传递
+fn get_char(data: &String) -> char {
     data.chars().last().unwrap()
 }
 
-// Should take ownership
-fn string_uppercase(mut data: &String) {
-    data = &data.to_uppercase();
-
-    println!("{}", data);
+// 应该获取可变引用来修改内容
+fn string_uppercase(data: &String) {
+    let data_upper = data.to_uppercase(); // 获取转换后的新字符串
+    println!("{}", data_upper);  // 输出转换后的字符串
 }
